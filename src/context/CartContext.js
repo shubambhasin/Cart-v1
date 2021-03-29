@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer } from "react";
+import { ProductData } from "../components/ProductData";
 
 export const CartContext = createContext();
 
@@ -7,14 +8,20 @@ const reducerFunc = (state, { type, payload }) => {
     case "ADD_TO_CART":
       return { ...state, cart: [...state.cart, { ...payload, quantity: 1 }] };
     case "REMOVE_FROM_CART":
-      return console.log("remove from cart", type, payload);
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item.id !== payload.id)
+      };
     case "ADD_TO_WISHLIST":
       return {
         ...state,
-        wishlist: [ ...state.wishlist, payload ]
+        wishlist: [...state.wishlist, payload]
       };
     case "REMOVE_FROM_WISHLIST":
-      return console.log("remove from wishlist", type, payload);
+      return {
+        ...state,
+        wishlist: state.wishlist.filter((item) => item.id !== payload.id)
+      };
     case "INC_QUANTITY":
       return {
         ...state,
@@ -33,14 +40,35 @@ const reducerFunc = (state, { type, payload }) => {
             : item
         )
       };
+    case "MOVE_TO_CART":
+      return {
+        ...state,
+        cart: [...state.cart, payload]
+      };
+
+    case "HIGH_TO_LOW":
+      return {
+        ...state,
+        products: state.products.sort((a, b) => a.price - b.price)
+      };
+    case "LOW_TO_HIGH":
+      return {};
+    case "FAST_DELIVERY_ONLY":
+      return {};
+    case "REMOVE_OUT_OF_STOCK":
+      return {};
 
     default:
-      break;
+      console.log("unknown event");
   }
 };
 
 export const CartProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducerFunc, { cart: [], wishlist: [] });
+  const [state, dispatch] = useReducer(reducerFunc, {
+    cart: [],
+    wishlist: [],
+    products: ProductData
+  });
   return (
     <>
       <CartContext.Provider value={{ state, dispatch }}>

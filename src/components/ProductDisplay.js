@@ -1,5 +1,6 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
+import { isNotInWishlist } from "./functions";
 
 export const ProductDisplay = ({ product }) => {
   const { state, dispatch } = useCart();
@@ -10,6 +11,12 @@ export const ProductDisplay = ({ product }) => {
     } else return false;
   };
 
+  const isNotInWishlist = (item) => {
+    const arr = state.wishlist.filter((data) => data.id === item.id);
+    if (arr.length === 0) return true;
+    else return false;
+  };
+
   const addToCart = (product) => {
     console.log(state.cart);
 
@@ -18,11 +25,14 @@ export const ProductDisplay = ({ product }) => {
     } else {
       console.log("Already in cart, so increasing quantity");
       return dispatch({ type: "INC_QUANTITY", payload: product });
-      
     }
   };
 
-  const addToWishlist = (product) => {};
+  const addToWishlist = (product) => {
+    if (isNotInWishlist(product))
+      return dispatch({ type: "ADD_TO_WISHLIST", payload: product });
+    else alert("already in wishlist");
+  };
   return (
     <>
       <div className="b1pxgrey p1-rem  m1-rem ">
