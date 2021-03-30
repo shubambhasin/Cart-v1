@@ -49,10 +49,13 @@ const reducerFunc = (state, { type, payload }) => {
     case "HIGH_TO_LOW":
       return {
         ...state,
-        products: state.products.sort((a, b) => a.price - b.price)
+        products: payload.sort((a, b) => b["price"] - a["price"])
       };
     case "LOW_TO_HIGH":
-      return {};
+      return {
+        ...state,
+        products: payload.sort((a, b) => a["price"] - b["price"])
+      };
     case "FAST_DELIVERY_ONLY":
       return {};
     case "REMOVE_OUT_OF_STOCK":

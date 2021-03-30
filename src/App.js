@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Cart } from "./components/Cart";
 import { Wishlist } from "./components/Wishlist";
-import {Productlisting} from './components/Productlisting'
+import { Productlisting } from "./components/Productlisting";
 import "./styles.css";
 import { useCart } from "./context/CartContext";
 
 export default function App() {
   const [route, setRoute] = useState("products");
   const { state } = useCart();
-
 
   return (
     <div className="App">

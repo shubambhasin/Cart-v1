@@ -1,6 +1,5 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
-import { isNotInWishlist } from "./functions";
 
 export const ProductDisplay = ({ product }) => {
   const { state, dispatch } = useCart();
@@ -36,8 +35,9 @@ export const ProductDisplay = ({ product }) => {
   return (
     <>
       <div className="b1pxgrey p1-rem  m1-rem ">
-        <p className="h3">{product.name}</p>
-        <p>{product.description}</p>
+        <p className="h3">Name: {product.name}</p>
+        <p>Description: {product.description}</p>
+        <p>Price: {product.price}</p>
         <button className="btn btn-blue" onClick={() => addToCart(product)}>
           Add to cart
         </button>

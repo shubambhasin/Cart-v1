@@ -4,8 +4,8 @@ import { ProductData } from "./ProductData";
 import { ProductDisplay } from "./ProductDisplay";
 
 export const Productlisting = () => {
-  const { state } = useCart();
-  const { products, dispatch } = state;
+  const { state, dispatch } = useCart();
+  const { products } = state;
   return (
     <div>
       <h1 className="h1">Products</h1>
@@ -14,12 +14,20 @@ export const Productlisting = () => {
       <form>
         <label>High to low</label>
         <input
-          onChange={() => dispatch({ type: "HIGHT_TO_LOW",  })}
+          onChange={() =>
+            dispatch({ type: "HIGH_TO_LOW", payload: ProductData })
+          }
           type="radio"
           name="sort"
         />
         <label>Low to high</label>
-        <input type="radio" name="sort" />
+        <input
+          onChange={() =>
+            dispatch({ type: "LOW_TO_HIGH", payload: ProductData })
+          }
+          type="radio"
+          name="sort"
+        />
       </form>
       <p>filter</p>
       <form>

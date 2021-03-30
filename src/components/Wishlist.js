@@ -9,13 +9,12 @@ export const Wishlist = () => {
     <>
       <div>
         <h1 className="h1">Wishlist</h1>
-        <button onClick={() => console.log(wishlist)}>onClick</button>
         {wishlist.map((item) => {
-          return(
+          return (
             <div key={item.id}>
-               <WishlistDisplay item={item} />
+              <WishlistDisplay item={item} />
             </div>
-          )
+          );
         })}
       </div>
     </>
